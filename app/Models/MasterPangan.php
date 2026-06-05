@@ -6,5 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class MasterPangan extends Model
 {
+    protected $table = 'master_pangans';
     protected $guarded = [];
 }
