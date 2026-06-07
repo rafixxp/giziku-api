@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -11,7 +13,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return response()->json($users);
     }
 
     /**
@@ -27,7 +30,33 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'phone_number' => 'required',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->assignRole($request->role);
+
+        if($user){
+            return response()->json([
+               'message' => 'User berhasil ditambahkan !',
+               'user' => $user
+            ], 201);
+        }
+        else{
+            return response()->json([
+                'message' => 'User gagal ditambahkan !',
+            ], 500);
+        }
     }
 
     /**
@@ -35,7 +64,18 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::find($id);
+        if($user){
+            return response()->json([
+                'message' => 'User ditemukan !',
+                'user' => $user
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'User tidak ditemukan !',
+            ], 404);
+        }
     }
 
     /**
@@ -51,7 +91,34 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$id,
+            'phone_number' => 'required',
+            'password' => 'required|string|min:8',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->assignRole($request->role);
+
+        if($user){
+            return response()->json([
+               'message' => 'User berhasil diupdate !',
+               'user' => $user
+            ], 201);
+        }
+        else{
+            return response()->json([
+                'message' => 'User gagal diupdate !',
+            ], 500);
+        }
     }
 
     /**
@@ -59,6 +126,17 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::where('id', $id)->delete();
+
+        if($user){
+            return response()->json([
+                'message' => 'User berhasil dihapus !'
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'message' => 'User gagal dihapus !'
+            ], 500);
+        }
     }
 }
