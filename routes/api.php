@@ -13,4 +13,5 @@ Route::prefix('auth')->group(function(){
 
 Route::middleware(['auth:sanctum','role:admin'])->group(function(){
     Route::resource('users', UserController::class);
+    
 });

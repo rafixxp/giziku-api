@@ -16,6 +16,14 @@ return new class extends Migration
             $table->string('group_name')->nullable();
             $table->tinyInteger('age_min')->nullable();
             $table->tinyInteger('age_max')->nullable();
+            $table->bigInteger('')->default(0);
+            $table->bigInteger('')->default(0);
+            $table->bigInteger('')->default(0);
+            $table->bigInteger('')->default(0);
+            $table->bigInteger('')->default(0);
+            $table->bigInteger('')->default(0);
+            $table->bigInteger('')->default(0);
+            $table->bigInteger('')->default(0);
             $table->timestamps();
         });
     }
