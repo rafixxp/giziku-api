@@ -11,9 +11,9 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        $users = User::get();
         return response()->json($users);
     }
 
@@ -95,7 +95,7 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,'.$id,
             'phone_number' => 'required',
-            'password' => 'required|string|min:8',
+            'password' => 'nullable|string|min:8',
         ]);
 
         $user = User::findOrFail($id);
@@ -103,10 +103,10 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->password),
+            'password' => $request->password ? Hash::make($request->password) : $user->password,
         ]);
 
-        $user->assignRole($request->role);
+        $user->syncRoles($request->role);
 
         if($user){
             return response()->json([

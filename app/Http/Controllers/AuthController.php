@@ -12,25 +12,32 @@ class AuthController extends Controller
     public function signin(Request $request)
     {
         $request->validate(
-        [
-            'email' => 'required|email',
-            'password' => 'required'
-        ],
-        [
-            'email.required' => 'Email wajib diisi',
-            'email.email' => 'Format email tidak valid',
-            'password.required' => 'Password wajib diisi',
-        ]
+            [
+                'email' => 'required|email',
+                'password' => 'required'
+            ],
+            [
+                'email.required' => 'Email wajib diisi',
+                'email.email' => 'Format email tidak valid',
+                'password.required' => 'Password wajib diisi',
+            ]
         );
 
         if(Auth::attempt($request->only('email', 'password'))){
             $user = Auth::user();
+            $user->tokens()->delete();
             $token = auth()->user()->createToken('user-token')->plainTextToken;
             
             return response()->json([
-                'user' => $user,
-                'token' => $token
-            ]);
+                "status" => "success",
+                "message" => "Signin berhasil !"
+            ])->cookie('session_token', base64_encode($token), 60 * 24, '/', null, false, true, false, 'Lax');
+        }
+        else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Email atau password salah !'
+            ], 401);
         }
     }
 

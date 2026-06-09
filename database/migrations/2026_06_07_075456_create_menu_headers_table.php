@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('menu_header', function (Blueprint $table) {
             $table->id();
-            $table->foreign('group_id')->constrained('kelompok_sasaran')->onCascadeDelete();
+            $table->foreignId('group_id')->constrained('group_target')->cascadeOnDelete();
             $table->bigInteger('target_population')->unsigned()->default(1);
             $table->tinyInteger('total_item')->default(0);
             $table->tinyInteger('status')->default(0);

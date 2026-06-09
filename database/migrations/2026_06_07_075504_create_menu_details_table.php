@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('menu_detail', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('menu_id')->constrained('menu_header')->onCascadeDelete();
+            $table->foreignId('menu_id')->constrained('menu_header')->cascadeOnDelete();
             $table->string('name')->nullable();
             $table->string('clear_portion')->nullable();
             $table->timestamps();

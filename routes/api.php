@@ -8,10 +8,9 @@ Use App\Http\Controllers\UserController;
 
 Route::prefix('auth')->group(function(){
     Route::post('signin', [AuthController::class, 'signin']);
-    Route::post('signup', [AuthController::class, 'signup']);
+    // Route::post('signup', [AuthController::class, 'signup']);
 });
 
-Route::middleware(['auth:sanctum','role:admin'])->group(function(){
+Route::middleware(['cookies:admin'])->group(function(){
     Route::resource('users', UserController::class);
-    
 });

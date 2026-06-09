@@ -5,6 +5,12 @@ namespace App\Models {
     /**
      * App\Models\History
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property int $id
+     * @method static \Illuminate\Database\Eloquent\Builder<History>|History whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<History>|History whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<History>|History whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<History>|History newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<History>|History newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<History>|History query()
@@ -323,6 +329,60 @@ namespace App\Models {
     /**
      * App\Models\KelompokSasaran
      *
+     * @property \Illuminate\Support\Carbon|null $updated_at
+     * @property \Illuminate\Support\Carbon|null $created_at
+     * @property mixed $vitamin_c
+     * @property mixed $niacin
+     * @property mixed $riboflavin
+     * @property mixed $thiamine
+     * @property mixed $total_carotene
+     * @property mixed $beta_carotene
+     * @property mixed $retinol
+     * @property mixed $zinc
+     * @property mixed $copper
+     * @property mixed $potassium
+     * @property mixed $sodium
+     * @property mixed $iron
+     * @property mixed $phosphorus
+     * @property mixed $calcium
+     * @property mixed $ash
+     * @property mixed $fiber
+     * @property mixed $carbohydrate
+     * @property mixed $fat
+     * @property mixed $protein
+     * @property mixed $energy
+     * @property mixed $water
+     * @property bool|null $age_max
+     * @property bool|null $age_min
+     * @property string|null $group_name
+     * @property int $id
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereId($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereGroupName($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereAgeMin($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereAgeMax($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereWater($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereEnergy($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereProtein($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereFat($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereCarbohydrate($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereFiber($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereAsh($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereCalcium($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran wherePhosphorus($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereIron($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereSodium($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran wherePotassium($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereCopper($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereZinc($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereRetinol($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereBetaCarotene($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereTotalCarotene($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereThiamine($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereRiboflavin($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereNiacin($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereVitaminC($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereCreatedAt($value)
+     * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran whereUpdatedAt($value)
      * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran newModelQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran newQuery()
      * @method static \Illuminate\Database\Eloquent\Builder<KelompokSasaran>|KelompokSasaran query()
@@ -672,7 +732,7 @@ namespace App\Models {
      * @property string|null $kategori_id
      * @property string|null $nama_en
      * @property string|null $nama_id
-     * @property int|null $sheet_row_id
+     * @property mixed $sheet_row_id
      * @property int $id
      * @method static \Illuminate\Database\Eloquent\Builder<MasterPangan>|MasterPangan whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MasterPangan>|MasterPangan whereSheetRowId($value)
@@ -1664,7 +1724,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $remember_token
-     * @property int $phone_number
+     * @property mixed $phone_number
      * @property string $password
      * @property \Illuminate\Support\Carbon|null $email_verified_at
      * @property string $email
