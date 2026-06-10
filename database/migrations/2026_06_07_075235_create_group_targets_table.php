@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('group_target', function (Blueprint $table) {
+        Schema::create('group_targets', function (Blueprint $table) {
             $table->id();
             $table->string('group_name')->nullable();
             $table->tinyInteger('age_min')->nullable();
@@ -20,7 +20,7 @@ return new class extends Migration
             $table->bigInteger('energy')->default(0);
             $table->bigInteger('protein')->default(0);
             $table->bigInteger('fat')->default(0);
-            $table->bigInteger('carbohydrate')->default(0);
+            $table->bigInteger('carbohydrates')->default(0);
             $table->bigInteger('fiber')->default(0);
             $table->bigInteger('ash')->default(0);
             $table->bigInteger('calcium')->default(0);
@@ -33,7 +33,7 @@ return new class extends Migration
             $table->bigInteger('retinol')->default(0);
             $table->bigInteger('beta_carotene')->default(0);
             $table->bigInteger('total_carotene')->default(0);
-            $table->bigInteger('thiamine')->default(0);
+            $table->bigInteger('thiamin')->default(0);
             $table->bigInteger('riboflavin')->default(0);
             $table->bigInteger('niacin')->default(0);
             $table->bigInteger('vitamin_c')->default(0);
@@ -45,6 +45,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('group_target');
+        Schema::dropIfExists('group_targets');
     }
 };

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\MasterPangan;
+use App\Models\FoodIngredients;
 
 class MasterPanganSeeder extends Seeder
 {
@@ -29,33 +29,33 @@ class MasterPanganSeeder extends Seeder
         while (($row = fgetcsv($file)) !== false) {
             $data[] = [
                 'sheet_row_id' => $this->getValue($row, 1),
-                'nama_id' => $this->getValue($row, 2),
-                'nama_en' => $this->getValue($row, 3),
-                'kategori_id' => $this->getValue($row, 4),
-                'kategori_en' => $this->getValue($row, 5),
-                'kalori' => $this->getNumericValue($row, 6),
+                'name_id' => $this->getValue($row, 2),
+                'name_en' => $this->getValue($row, 3),
+                'category_id' => $this->getValue($row, 4),
+                'category_en' => $this->getValue($row, 5),
+                'calories' => $this->getNumericValue($row, 6),
                 'protein' => $this->getNumericValue($row, 7),
-                'karbohidrat' => $this->getNumericValue($row, 8),
-                'lemak' => $this->getNumericValue($row, 9),
-                'serat' => $this->getNumericValue($row, 10),
-                'natrium' => $this->getNumericValue($row, 11),
-                'kalsium' => $this->getNumericValue($row, 12),
+                'carbohydrates' => $this->getNumericValue($row, 8),
+                'fat' => $this->getNumericValue($row, 9),
+                'fiber' => $this->getNumericValue($row, 10),
+                'sodium' => $this->getNumericValue($row, 11),
+                'calcium' => $this->getNumericValue($row, 12),
                 'source' => $this->getValue($row, 13),
-                'besi' => $this->getNumericValue($row, 16),
-                'fosfor' => $this->getNumericValue($row, 17),
+                'iron' => $this->getNumericValue($row, 16),
+                'phosphorus' => $this->getNumericValue($row, 17),
                 'basis_gram' => $this->getNumericValue($row, 18),
-                'abu' => $this->getNumericValue($row, 19),
-                'kalium' => $this->getNumericValue($row, 20),
-                'tembaga' => $this->getNumericValue($row, 21),
-                'seng' => $this->getNumericValue($row, 22),
+                'ash' => $this->getNumericValue($row, 19),
+                'potassium' => $this->getNumericValue($row, 20),
+                'copper' => $this->getNumericValue($row, 21),
+                'zinc' => $this->getNumericValue($row, 22),
                 'retinol' => $this->getNumericValue($row, 23),
-                'beta_karoten' => $this->getNumericValue($row, 24),
-                'karoten_total' => $this->getNumericValue($row, 25),
+                'beta_carotene' => $this->getNumericValue($row, 24),
+                'total_carotene' => $this->getNumericValue($row, 25),
                 'thiamin' => $this->getNumericValue($row, 26),
                 'riboflavin' => $this->getNumericValue($row, 27),
-                'niasin' => $this->getNumericValue($row, 28),
+                'niacin' => $this->getNumericValue($row, 28),
                 'vitamin_c' => $this->getNumericValue($row, 29),
-                'air' => $this->getNumericValue($row, 30),
+                'water' => $this->getNumericValue($row, 30),
                 'bdd_percent' => $this->getNumericValue($row, 31),
                 'scope' => $this->getValue($row, 32),
                 'created_at' => now(),
@@ -63,7 +63,7 @@ class MasterPanganSeeder extends Seeder
             ];
 
             if (count($data) >= $batchSize) {
-                MasterPangan::insert($data);
+                FoodIngredients::insert($data);
                 $this->command->info("Inserted " . count($data) . " records");
                 $data = [];
             }
@@ -71,12 +71,12 @@ class MasterPanganSeeder extends Seeder
 
         // Insert remaining data
         if (count($data) > 0) {
-            MasterPangan::insert($data);
+            FoodIngredients::insert($data);
             $this->command->info("Inserted " . count($data) . " records");
         }
 
         fclose($file);
-        $this->command->info("MasterPangan seeding completed successfully!");
+        $this->command->info("FoodIngredients seeding completed successfully!");
     }
 
     /**

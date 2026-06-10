@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MasterPangan extends Model
+class GroupTarget extends Model
 {
-    protected $table = 'master_pangans';
+    protected $table = 'group_targets';
     protected $guarded = [];
 }

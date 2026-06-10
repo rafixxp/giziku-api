@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menu_header', function (Blueprint $table) {
+        Schema::create('menu_headers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('group_id')->constrained('group_target')->cascadeOnDelete();
+            $table->foreignId('group_id')->constrained('group_targets')->cascadeOnDelete();
             $table->bigInteger('target_population')->unsigned()->default(1);
             $table->tinyInteger('total_item')->default(0);
             $table->tinyInteger('status')->default(0);
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu_header');
+        Schema::dropIfExists('menu_headers');
     }
 };

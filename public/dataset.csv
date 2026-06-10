@@ -1,4 +1,4 @@
-﻿id,sheet_row_id,nama_id,nama_en,kategori_id,kategori_en,kalori,protein,karbohidrat,lemak,serat,natrium,kalsium,source,created_at,updated_at,besi,fosfor,basis_gram,abu,kalium,tembaga,seng,retinol,beta_karoten,karoten_total,thiamin,riboflavin,niasin,vitamin_c,air,bdd_percent,scope
+﻿id,sheet_row_id,name_id,name_en,category_id,category_en,calories,protein,carbohydrates,fat,fiber,sodium,calcium,source,created_at,updated_at,iron,phosphorus,basis_gram,ash,potassium,copper,zinc,retinol,beta_carotene,total_carotene,thiamin,riboflavin,niacin,vitamin_c,water,bdd_percent,scope
 12612,1,"Beras giling, mentah","Beras giling, mentah",,,357,8.4,77.1,1.7,0.2,27,147,sheets,2026-03-29T11:30:30.588146+00:00,2026-03-30T20:10:27.963437+00:00,1.8,81,100,0.8,71,0.1,0.5,0,0,0,0.2,0.08,2.6,0,12,100,global
 12613,2,"Beras giling var pelita,
 mentah","Beras giling var pelita,

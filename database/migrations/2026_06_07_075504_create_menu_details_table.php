@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menu_detail', function (Blueprint $table) {
+        Schema::create('menu_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('menu_id')->constrained('menu_header')->cascadeOnDelete();
+            $table->foreignId('menu_id')->constrained('menu_headers')->cascadeOnDelete();
             $table->string('name')->nullable();
             $table->string('clear_portion')->nullable();
             $table->timestamps();
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menu_detail');
+        Schema::dropIfExists('menu_details');
     }
 };
