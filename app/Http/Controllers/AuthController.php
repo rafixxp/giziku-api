@@ -27,12 +27,35 @@ class AuthController extends Controller
             $user = Auth::user();
             $user->tokens()->delete();
             $token = auth()->user()->createToken('user-token')->plainTextToken;
-            
+
+            $origin = $request->header('Origin');
+            $allowedOrigins = [
+                'admin' => 'https://admin.giziku.id',
+                'nutritionist' => 'https://giziku.id'
+            ];
+
+            if($user->hasRole('admin') && $origin !== $allowedOrigins['admin']){
+                Auth::logout();
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Anda tidak diizinkan masuk !"
+                    ], 401);
+            }
+
+            if($user->hasRole('nutritionist') && $origin !== $allowedOrigins['nutritionist']){
+                Auth::logout();
+                return response()->json([
+                    "status" => "error",
+                    "message" => "Anda tidak diizinkan masuk !"
+                ], 401);
+            }
+
             return response()->json([
                 "status" => "success",
                 "message" => "Signin berhasil !"
-            ])->cookie('session_token', base64_encode($token), 60 * 24, '/', null, false, true, false, 'Lax');
+            ])->cookie('session_token', base64_encode($token), 60 * 24, '/', '.giziku.id', true, true, false, 'Lax');
         }
+
         else{
             return response()->json([
                 'status' => 'error',
