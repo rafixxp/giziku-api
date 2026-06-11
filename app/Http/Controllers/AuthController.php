@@ -23,39 +23,25 @@ class AuthController extends Controller
             ]
         );
 
-        if(Auth::attempt($request->only('email', 'password'))){
+        if(Auth::attempt($request->only('email','password'))){
             $user = Auth::user();
-            $user->tokens()->delete();
-            $token = auth()->user()->createToken('user-token')->plainTextToken;
-
             $origin = $request->header('Origin');
-            $allowedOrigins = [
+
+            $allowed = [
                 'admin' => 'https://admin.giziku.id',
                 'nutritionist' => 'https://giziku.id'
             ];
 
-            if($user->hasRole('admin') && $origin !== $allowedOrigins['admin']){
-                Auth::logout();
-                return response()->json([
-                    "status" => "error",
-                    "message" => "Anda tidak diizinkan masuk !"
-                    ], 401);
+            foreach($allowed as $role => $url){
+                if(!$user->hasRole($role) && $origin !== $url){
+                    $token =$user->createToken('user-token')->plainTextToken;
+                    return response()->json([
+                        "status" => "success",
+                        "message" => "Signin successfully"
+                    ])->cookie('session_token', base64_encode($token), 60 * 24, '/', '.giziku.id', true, true, false, 'Lax');
+                }
             }
-
-            if($user->hasRole('nutritionist') && $origin !== $allowedOrigins['nutritionist']){
-                Auth::logout();
-                return response()->json([
-                    "status" => "error",
-                    "message" => "Anda tidak diizinkan masuk !"
-                ], 401);
-            }
-
-            return response()->json([
-                "status" => "success",
-                "message" => "Signin berhasil !"
-            ])->cookie('session_token', base64_encode($token), 60 * 24, '/', '.giziku.id', true, true, false, 'Lax');
         }
-
         else{
             return response()->json([
                 'status' => 'error',

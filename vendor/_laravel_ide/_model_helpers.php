@@ -36,7 +36,7 @@ namespace App\Models {
      * @property string|null $category_id
      * @property string|null $name_en
      * @property string|null $name_id
-     * @property mixed $sheet_row_id
+     * @property int|null $sheet_row_id
      * @property int $id
      * @method static \Illuminate\Database\Eloquent\Builder<FoodIngredients>|FoodIngredients whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<FoodIngredients>|FoodIngredients whereSheetRowId($value)
@@ -391,29 +391,29 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property mixed $vitamin_c
-     * @property mixed $niacin
-     * @property mixed $riboflavin
-     * @property mixed $thiamin
-     * @property mixed $total_carotene
-     * @property mixed $beta_carotene
-     * @property mixed $retinol
-     * @property mixed $zinc
-     * @property mixed $copper
-     * @property mixed $potassium
-     * @property mixed $sodium
-     * @property mixed $iron
-     * @property mixed $phosphorus
-     * @property mixed $calcium
-     * @property mixed $ash
-     * @property mixed $fiber
-     * @property mixed $carbohydrates
-     * @property mixed $fat
-     * @property mixed $protein
-     * @property mixed $energy
-     * @property mixed $water
-     * @property bool|null $age_max
-     * @property bool|null $age_min
+     * @property int $vitamin_c
+     * @property int $niacin
+     * @property int $riboflavin
+     * @property int $thiamin
+     * @property int $total_carotene
+     * @property int $beta_carotene
+     * @property int $retinol
+     * @property int $zinc
+     * @property int $copper
+     * @property int $potassium
+     * @property int $sodium
+     * @property int $iron
+     * @property int $phosphorus
+     * @property int $calcium
+     * @property int $ash
+     * @property int $fiber
+     * @property int $carbohydrates
+     * @property int $fat
+     * @property int $protein
+     * @property int $energy
+     * @property int $water
+     * @property int|null $age_max
+     * @property int|null $age_min
      * @property string|null $group_name
      * @property int $id
      * @method static \Illuminate\Database\Eloquent\Builder<GroupTarget>|GroupTarget whereId($value)
@@ -1089,7 +1089,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $clear_portion
      * @property string|null $name
-     * @property mixed $menu_id
+     * @property int $menu_id
      * @property int $id
      * @method static \Illuminate\Database\Eloquent\Builder<MenuDetail>|MenuDetail whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MenuDetail>|MenuDetail whereMenuId($value)
@@ -1417,10 +1417,10 @@ namespace App\Models {
      *
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
-     * @property bool $status
-     * @property bool $total_item
-     * @property mixed $target_population
-     * @property mixed $group_id
+     * @property int $status
+     * @property int $total_item
+     * @property int $target_population
+     * @property int $group_id
      * @property int $id
      * @method static \Illuminate\Database\Eloquent\Builder<MenuHeader>|MenuHeader whereId($value)
      * @method static \Illuminate\Database\Eloquent\Builder<MenuHeader>|MenuHeader whereGroupId($value)
@@ -1750,7 +1750,7 @@ namespace App\Models {
      * @property \Illuminate\Support\Carbon|null $updated_at
      * @property \Illuminate\Support\Carbon|null $created_at
      * @property string|null $remember_token
-     * @property mixed $phone_number
+     * @property int $phone_number
      * @property string $password
      * @property \Illuminate\Support\Carbon|null $email_verified_at
      * @property string $email

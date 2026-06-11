@@ -10,47 +10,50 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SessionMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  Closure(Request): (Response)  $next
-     */
     public function handle(Request $request, Closure $next, ...$roles): Response
     {
-        if($request->hasCookie('session_token')){
-            $token = base64_decode($request->cookie('session_token'));
+        if (!$request->hasCookie('session_token')) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthenticated'
+            ], 401);
+        }
 
-            if(!$token){
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Cookie tidak sesuai !'
-                ], 401);
-            }
+        $token = base64_decode($request->cookie('session_token'));
 
-            $accessToken = PersonalAccessToken::findToken($token);
+        $accessToken = PersonalAccessToken::findToken($token);
 
-            if (!$accessToken) {
-                return response()->json([
-                    'status' => 'error',
-                    'message' => 'Unauthenticated'
-                ], 401);
-            }
+        if (!$accessToken) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Unauthenticated'
+            ], 401);
+        }
 
-            $user = $accessToken->tokenable;
+        $user = $accessToken->tokenable;
+        Auth::setUser($user);
 
-            Auth::setUser($user);
+        if (!empty($roles)) {
+            $origin = $request->header('Origin');
+            $allowed = [
+                'admin' => 'https://admin.giziku.id',
+                'nutritionist' => 'https://giziku.id'
+            ];
 
-            if (!empty($roles)) {
+            $authorized = false;
 
-                $hasRole = collect($roles)
-                    ->contains(fn ($role) => $user->hasRole($role));
-
-                if (!$hasRole) {
-                    return response()->json([
-                        'status' => 'error',
-                        'message' => 'Forbidden'
-                    ], 403);
+            foreach ($roles as $role) {
+                if ($user->hasRole($role) && isset($allowed[$role]) && $origin === $allowed[$role]) {
+                    $authorized = true;
+                    break;
                 }
+            }
+
+            if (!$authorized) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Forbidden'
+                ], 403);
             }
         }
 
