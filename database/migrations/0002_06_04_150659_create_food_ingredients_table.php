@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('master_pangans', function (Blueprint $table) {
+        Schema::create('food_ingredients', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('sheet_row_id')->nullable();
             $table->string('name_id')->nullable();
@@ -46,6 +46,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('master_pangans');
+        Schema::dropIfExists('food_ingredients');
     }
 };

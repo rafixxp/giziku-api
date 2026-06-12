@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class FoodIngredients extends Model
 {
-    protected $table = 'master_pangans';
+    protected $table = 'food_ingredients';
     protected $guarded = [];
 }

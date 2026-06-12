@@ -50,43 +50,29 @@ class AuthController extends Controller
         }
     }
 
-    public function signup(Request $request)
+    public function resetPassword(Request $request)
     {
-        $request->validate(
-            [
-                'name' => 'required',
-                'email' => 'required|email|unique:users',
-                'phone_number' => 'required|numeric',
-                'password' => 'required|confirmed',
-                'password_confirmation' => 'required'
-            ],
-            [
-                'name.required' => 'Nama lengkap wajib diisi',
-                'email.required' => 'Email wajib diisi',
-                'email.email' => 'Format email tidak valid',
-                'email.unique' => 'Email sudah terdaftar',
-                'phone_number.required' => 'Nomor telepon wajib diisi',
-                'phone_number.numeric' => 'Format nomor telepon harus angka',
-                'password.required' => 'Password wajib diisi',
-                'password.confirmed' => 'Konfirmasi password tidak sama!',
-                'password_confirmation.required' => 'Konfirmasi password wajib diisi'
-            ]
-        );
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'password' => Hash::make($request->password)
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|min:8|confirmed'
         ]);
 
-        Auth::login($user);
-        $token = $user->createToken('user-token')->plainTextToken;
+        $user = auth()->user();
+
+        if(!Hash::check($request->old_password, $user->password)){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Old password does`nt match'
+            ],403);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->new_password)
+        ]);
 
         return response()->json([
-            'message' => 'User berhasil didaftarkan',
-            'user' => $user,
-            'token' => $token
+            'status' => 'success',
+            'message' => 'Password updated successfully !'
         ]);
     }
 }

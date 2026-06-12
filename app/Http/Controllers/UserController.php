@@ -49,7 +49,7 @@ class UserController extends Controller
         if($user){
             return response()->json([
                'message' => 'User berhasil ditambahkan !',
-               'user' => $user
+               'data' => $user
             ], 201);
         }
         else{
@@ -68,7 +68,7 @@ class UserController extends Controller
         if($user){
             return response()->json([
                 'message' => 'User ditemukan !',
-                'user' => $user
+                'data' => $user
             ], 200);
         }
         else{
@@ -111,7 +111,7 @@ class UserController extends Controller
         if($user){
             return response()->json([
                'message' => 'User berhasil diupdate !',
-               'user' => $user
+               'data' => $user
             ], 201);
         }
         else{
