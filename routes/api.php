@@ -9,7 +9,7 @@ Use App\Http\Controllers\AuthController;
 Use App\Http\Controllers\UserController;
 Use App\Http\Controllers\ProfileController;
 
-Route::prefix('auth')->group(function(){
+Route::prefix('auth')->middleware('throttle:6,5')->group(function(){
     Route::post('signin', [AuthController::class, 'signin']);
     Route::post('signup', [AuthController::class, 'signup']);
     Route::post('reset-password', [AuthController::class, 'resetPassword'])->middleware('cookies:admin,nutritionist');
