@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Sanctum\PersonalAccessToken;
 use App\Models\User;
 
 class AuthController extends Controller
@@ -48,6 +49,57 @@ class AuthController extends Controller
                 'message' => 'Email atau password salah !'
             ], 401);
         }
+    }
+
+    public function signup(Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required',
+            'password' => 'required'
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'password' => Hash::make($request->password),
+        ]);
+
+        $user->assignRole('nutritionist');
+
+        if($user){
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Register successfully !',
+                'data' => $user
+            ], 200);
+        }
+        else{
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Register failed !',
+            ], 401);
+        }
+    }
+
+    public function signout(Request $request)
+    {
+        $token = base64_decode($request->cookie('session_token'));
+
+        if($token){
+            $accessToken = PersonalAccessToken::findToken($token);
+            
+            if($accessToken){
+                $accessToken->delete();
+            }
+        }
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Sign out successfully'
+        ], 200);
     }
 
     public function resetPassword(Request $request)

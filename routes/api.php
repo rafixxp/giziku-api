@@ -11,7 +11,9 @@ Use App\Http\Controllers\ProfileController;
 
 Route::prefix('auth')->group(function(){
     Route::post('signin', [AuthController::class, 'signin']);
+    Route::post('signup', [AuthController::class, 'signup']);
     Route::post('reset-password', [AuthController::class, 'resetPassword'])->middleware('cookies:admin,nutritionist');
+    Route::delete('signout', [AuthController::class, 'signout'])->middleware('cookies:admin,nutritionist');
 });
 
 Route::prefix('profile')->middleware(['cookies:admin,nutritionist'])->group(function(){
