@@ -18,6 +18,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->encryptCookies(except:[
             'session_token'
         ]);
+        $middleware->validateCsrfTokens(except: [
+            'auth/signin',
+            'auth/signup',
+        ]);
 
          $middleware->alias([
             'cookies' => \App\Http\Middleware\SessionMiddleware::class,
