@@ -20,7 +20,6 @@ class SessionMiddleware
         }
 
         $token = base64_decode($request->cookie('session_token'));
-
         $accessToken = PersonalAccessToken::findToken($token);
 
         if (!$accessToken) {
@@ -34,22 +33,15 @@ class SessionMiddleware
         Auth::setUser($user);
 
         if (!empty($roles)) {
-            $origin = $request->header('Origin');
-            $allowed = [
-                'admin' => 'http://localhost:3000',
-                'nutritionist' => 'http://localhost:3000'
-            ];
-
-            $authorized = false;
-
+            $hasRole = false;
             foreach ($roles as $role) {
-                if ($user->hasRole($role) && isset($allowed[$role]) && $origin === $allowed[$role]) {
-                    $authorized = true;
+                if ($user->hasRole($role)) {
+                    $hasRole = true;
                     break;
                 }
             }
 
-            if (!$authorized) {
+            if (!$hasRole) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Forbidden'
