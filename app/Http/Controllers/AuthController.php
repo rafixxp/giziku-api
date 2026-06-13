@@ -29,17 +29,18 @@ class AuthController extends Controller
             $origin = $request->header('Origin');
 
             $allowed = [
-                'admin' => 'https://admin.giziku.id',
-                'nutritionist' => 'https://giziku.id'
+                'admin' => env('ADMIN_URL'),
+                'nutritionist' => env('NUTRITIONIST_URL')
             ];
 
             foreach($allowed as $role => $url){
                 if(!$user->hasRole($role) && $origin !== $url){
-                    $token =$user->createToken('user-token')->plainTextToken;
+                    $request->session()->regenerate();
+                    $token = $user->createToken('user-token')->plainTextToken;
                     return response()->json([
                         "status" => "success",
                         "message" => "Signin successfully"
-                    ])->cookie('session_token', base64_encode($token), 60 * 24, '/', 'wasmer.app', true, true, false, 'Lax');
+                    ])->cookie('session_token', base64_encode($token), 60 * 24, '/', 'localhost', true, true, false, 'Lax');
                 }
             }
         }
