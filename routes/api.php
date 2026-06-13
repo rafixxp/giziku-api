@@ -26,3 +26,9 @@ Route::middleware(['cookies:admin'])->group(function(){
 
     Route::get('groups', [TargetController::class, 'index'])->name('groups.find');
 });
+
+Route::get('/debug-headers', function () {
+    return response()->json([
+        'success' => true
+    ])->header('X-Debug', 'Arrivo');
+});
