@@ -36,8 +36,8 @@ class SessionMiddleware
         if (!empty($roles)) {
             $origin = $request->header('Origin');
             $allowed = [
-                'admin' => 'https://admin.giziku.id',
-                'nutritionist' => 'https://giziku.id'
+                'admin' => 'http://localhost:3000',
+                'nutritionist' => 'http://localhost:3000'
             ];
 
             $authorized = false;

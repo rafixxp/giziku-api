@@ -16,19 +16,13 @@ Route::prefix('auth')->middleware('throttle:6,5')->group(function(){
     Route::delete('signout', [AuthController::class, 'signout'])->middleware('cookies:admin,nutritionist');
 });
 
-Route::prefix('profile')->middleware(['cookies:admin,nutritionist'])->group(function(){
+Route::prefix('user')->middleware(['cookies:admin,nutritionist'])->group(function(){
     Route::post('update', [ProfileController::class, 'update']);
     Route::get('/', [ProfileController::class, 'index']);
 });
 
 Route::middleware(['cookies:admin'])->group(function(){
-    Route::resource('users', UserController::class);
+    // Route::resource('users', UserController::class);
 
     Route::get('groups', [TargetController::class, 'index'])->name('groups.find');
-});
-
-Route::get('/debug-headers', function () {
-    return response()->json([
-        'success' => true
-    ])->header('X-Debug', 'Arrivo');
 });
