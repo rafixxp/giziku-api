@@ -34,8 +34,7 @@ class AuthController extends Controller
             ];
 
             foreach($allowed as $role => $url){
-                if(!$user->hasRole($role) && $origin !== $url){
-                    $request->session()->regenerate();
+                if(!$user->hasRole($role) && $origin !== $url){                    
                     $token = $user->createToken('user-token')->plainTextToken;
                     return response()->json([
                         "status" => "success",
