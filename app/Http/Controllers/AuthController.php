@@ -39,7 +39,7 @@ class AuthController extends Controller
                     return response()->json([
                         "status" => "success",
                         "message" => "Signin successfully"
-                    ])->cookie('session_token', base64_encode($token), 60 * 24, '/', 'localhost', true, true, false, 'Lax');
+                    ])->cookie('session_token', base64_encode($token), 60 * 24, '/', 'wasmer.app', true, true, false, 'Lax');
                 }
             }
         }
