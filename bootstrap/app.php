@@ -13,8 +13,8 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        // $middleware->statefulApi();
-        $middleware->append(\App\Http\Middleware\CorsMiddleware::class);
+        $middleware->statefulApi();
+        $middleware->prepend(\App\Http\Middleware\CorsMiddleware::class);
         $middleware->encryptCookies(except:[
             'session_token'
         ]);
