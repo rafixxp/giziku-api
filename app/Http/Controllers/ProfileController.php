@@ -65,7 +65,8 @@ class ProfileController extends Controller
         $update = $user->update([
             'name' => $request->name ?? $user->name,
             'email' => $request->email ?? $user->email,
-            'phone_number' => $request->phone_number ?? $user->phone_number
+            'phone_number' => $request->phone_number ?? $user->phone_number,
+            ''
         ]);
 
         if($update){
