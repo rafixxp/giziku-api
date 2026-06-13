@@ -24,33 +24,50 @@ class AuthController extends Controller
             ]
         );
 
-        if(Auth::attempt($request->only('email','password'))){
-            $user = Auth::user();
-            $origin = $request->header('Origin');
-
-            $allowed = [
-                'admin' => env('ADMIN_URL'),
-                'nutritionist' => env('NUTRITIONIST_URL')
-            ];
-
-            foreach($allowed as $role => $url){
-                if(!$user->hasRole($role) && $origin !== $url){                    
-                    $token = $user->createToken('user-token')->plainTextToken;
-                    return response()->json([
-                        "status" => "success",
-                        "message" => "Signin successfully"
-                    ])->cookie('session_token', base64_encode($token), 60 * 24, '/', 'wasmer.app', true, true, false, 'Lax');
-                }
-            }
-        }
-        else{
+        if (!Auth::attempt($request->only('email', 'password'))) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Email atau password salah !'
             ], 401);
         }
-    }
 
+        $user = Auth::user();
+        $origin = $request->header('Origin');
+
+        $allowed = [
+            'admin' => env('ADMIN_URL'),
+            'nutritionist' => env('NUTRITIONIST_URL'),
+        ];
+
+        $roleMatched = false;
+        foreach ($allowed as $role => $url) {
+            if ($user->hasRole($role) && $origin === $url) {
+                $roleMatched = true;
+                break;
+            }
+        }
+
+        if (!$roleMatched) {
+            Auth::logout();
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Akses ditolak untuk role ini'
+            ], 403);
+        }
+
+        // Hapus token lama agar tidak menumpuk di tabel personal_access_tokens
+        $user->tokens()->delete();
+
+        $token = $user->createToken('user-token')->plainTextToken;
+
+        return response()
+            ->json([
+                'status' => 'success',
+                'message' => 'Signin successfully',
+            ])
+            ->cookie('session_token', base64_encode($token), 60 * 24, '/', 'localhost', true, true, false, 'Lax');
+    }
+    
     public function signup(Request $request)
     {
         $request->validate([
